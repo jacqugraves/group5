@@ -14,23 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import jinja2
 import webapp2
 
-env=jinja2.Environment(loader=jinja2.FileSystemLoader('templates'))
-
 class MainHandler(webapp2.RequestHandler):
- emails= [{'subject':'Lunch?', 'unread' : True, 'spam': False },
-         {'subject':'Google+ notification', 'unread' : False, 'spam': False},
-         {'subject':'Help! send me money from your account!', 'unread': True, 'spam': True},
-         {'subject':'Meeting on Thursday', 'unread' : False, 'spam': False}]
- def get(self):
-     template = env.get_template('main.html')
-     variables = {'name':self.request.get('name'),
-                 'emails':self.emails}
-
-     self.response.write(template.render(variables))
+    def get(self):
+        self.response.write('Hello world!')
 
 app = webapp2.WSGIApplication([
-   ('/', MainHandler)
+    ('/', MainHandler)
 ], debug=True)
