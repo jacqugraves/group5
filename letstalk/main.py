@@ -17,8 +17,17 @@ from google.appengine.api import users
 import webapp2
 import jinja2
 
+env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
+
 class MainHandler(webapp2.RequestHandler):
- def get(self):
+ def get(self): 
+    template = env.get_template('index.html')   
+    #template = jinja_environment.get_template('index.html')
+    self.response.out.write(template.render())
+
+
+class SigninHandler(webapp2.RequestHandler):
+ def get(self):     
     user = users.get_current_user()
     if user:
         greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
@@ -30,5 +39,6 @@ class MainHandler(webapp2.RequestHandler):
     self.response.out.write('<html><body>%s</body></html>' % greeting)
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/signin', SigninHandler)
 ], debug=True)
