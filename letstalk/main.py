@@ -12,25 +12,23 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-# limitations under the License.
-#
-import jinja2
+# limitations under the License.from google.appengine.api import users
+from google.appengine.api import users
 import webapp2
-
-env=jinja2.Environment(loader=jinja2.FileSystemLoader('templates'))
+import jinja2
 
 class MainHandler(webapp2.RequestHandler):
- emails= [{'subject':'Lunch?', 'unread' : True, 'spam': False },
-         {'subject':'Google+ notification', 'unread' : False, 'spam': False},
-         {'subject':'Help! send me money from your account!', 'unread': True, 'spam': True},
-         {'subject':'Meeting on Thursday', 'unread' : False, 'spam': False}]
  def get(self):
-     template = env.get_template('main.html')
-     variables = {'name':self.request.get('name'),
-                 'emails':self.emails}
+    user = users.get_current_user()
+    if user:
+        greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
+            (user.nickname(), users.create_logout_url('/')))
+    else:
+        greeting = ('<a href="%s">Sign in or register</a>.' %
+            users.create_login_url('/'))
 
-     self.response.write(template.render(variables))
+    self.response.out.write('<html><body>%s</body></html>' % greeting)
 
 app = webapp2.WSGIApplication([
-   ('/', MainHandler)
+    ('/', MainHandler)
 ], debug=True)
