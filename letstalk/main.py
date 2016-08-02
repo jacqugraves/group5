@@ -25,25 +25,28 @@ class DTopic(ndb.Model):
 	Topic = ndb.StringProperty(required=True)
 	Category = ndb.StringProperty(required=True, default='Misc')
 	Comments = ndb.StringProperty()
+	Order = ndb.IntegerProperty()
+	TheId= ndb.IntegerProperty()
+    #q=ndb.Query(DTopic)
 
-class MainHandler(webapp2.RequestHandler):
+class WebPageHandler(webapp2.RequestHandler):
  def get(self): 
     template = env.get_template('index.html')   
     #template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render())
 
 
-class SigninHandler(webapp2.RequestHandler):
+class MainHandler(webapp2.RequestHandler):
  def get(self):     
     user = users.get_current_user()
     if user:
-        greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
-            (user.nickname(), users.create_logout_url('/')))
+        template = env.get_template('index.html') 
+        self.response.out.write(template.render())
     else:
-        greeting = ('<a href="%s">Sign in or register</a>.' %
-            users.create_login_url('/'))
+        login = users.create_login_url('/')
+        greeting = '<a href="%s">Sign in or register</a>.' % login
+        self.response.out.write('<html><body>%s</body></html>' % greeting)
 
-    self.response.out.write('<html><body>%s</body></html>' % greeting)
 class SetTopicHandler(webapp2.RequestHandler):
     def get(self):
         templates=env2.get_template('newTopic.html')
@@ -56,10 +59,15 @@ class SetTopicHandler(webapp2.RequestHandler):
         string1 = self.request.get("SideOne")
         string2 = self.request.get("SideTwo")
         t = DTopic(
+        	TheId=123,
         	Topic=(string1 + " vs "+ string2),
-        	Category=self.request.get("Cat"),
-        	Comments=self.request.get("FirstComment"))
+        	Category =self.request.get("Cat"),
+        	Order= 0,
+        	Comments =self.request.get("FirstComment"))	
         t.put()
+        
+       
+#if DTopic.query().filter(DTopic.TheId == 123)
 
 
 
@@ -71,7 +79,7 @@ class TalkPageHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/signin', SigninHandler),
+    ('/webpage', WebPageHandler),
     ('/newtopic', SetTopicHandler),
     ('/talkpage', TalkPageHandler)
 ], debug=True)
