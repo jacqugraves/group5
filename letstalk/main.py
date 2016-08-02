@@ -14,10 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.from google.appengine.api import users
 from google.appengine.api import users
+from google.appengine.ext import ndb
 import webapp2
 import jinja2
 
 env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
+env2 = jinja2.Environment(loader=jinja2.FileSystemLoader("NewTopicTemplate"))
+
+class DTopic(ndb.Model):
+	Topic = ndb.StringProperty(required=True)
+	Category = ndb.StringProperty(required=True, default='Misc')
+	Comments = ndb.StringProperty()
 
 class MainHandler(webapp2.RequestHandler):
  def get(self): 
@@ -37,8 +44,34 @@ class SigninHandler(webapp2.RequestHandler):
             users.create_login_url('/'))
 
     self.response.out.write('<html><body>%s</body></html>' % greeting)
+class SetTopicHandler(webapp2.RequestHandler):
+    def get(self):
+        templates=env2.get_template('newTopic.html')
+        self.response.out.write(templates.render())
+       
+    def post(self):
+    	#self.response.out.write("submitted")
+    	results_template = env2.get_template('Talk.html')
+        self.response.out.write(results_template.render())
+        string1 = self.request.get("SideOne")
+        string2 = self.request.get("SideTwo")
+        t = DTopic(
+        	Topic=(string1 + " vs "+ string2),
+        	Category=self.request.get("Cat"),
+        	Comments=self.request.get("FirstComment"))
+        t.put()
+
+
+
+
+class TalkPageHandler(webapp2.RequestHandler):
+    def get(self):
+        templates=env2.get_template('Talk.html')
+        self.response.out.write(templates.render())
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/signin', SigninHandler)
+    ('/signin', SigninHandler),
+    ('/newtopic', SetTopicHandler),
+    ('/talkpage', TalkPageHandler)
 ], debug=True)
