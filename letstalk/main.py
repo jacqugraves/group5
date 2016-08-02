@@ -77,9 +77,15 @@ class TalkPageHandler(webapp2.RequestHandler):
         templates=env2.get_template('Talk.html')
         self.response.out.write(templates.render())
 
+class ListTopicHandler(webapp2.RequestHandler):
+    def get(self):
+       category = self.request.get('category')
+       self.response.out.write(category)
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/webpage', WebPageHandler),
     ('/newtopic', SetTopicHandler),
-    ('/talkpage', TalkPageHandler)
+    ('/talkpage', TalkPageHandler),
+    ('/listtopic', ListTopicHandler)
 ], debug=True)
