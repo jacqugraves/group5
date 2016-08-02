@@ -37,13 +37,15 @@ class MainHandler(webapp2.RequestHandler):
  def get(self):     
     user = users.get_current_user()
     if user:
-        greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
-            (user.nickname(), users.create_logout_url('/')))
+        template = env.get_template('index.html') 
+        self.response.out.write(template.render())
+        #greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
+            #(user.nickname(), users.create_login_url()('/webpage')))
     else:
-        greeting = ('<a href="%s">Sign in or register</a>.' %
-            users.create_login_url('/'))
+        login = users.create_login_url('/')
+        greeting = '<a href="%s">Sign in or register</a>.' % login
+        self.response.out.write('<html><body>%s</body></html>' % greeting)
 
-    self.response.out.write('<html><body>%s</body></html>' % greeting)
 class SetTopicHandler(webapp2.RequestHandler):
     def get(self):
         templates=env2.get_template('newTopic.html')
