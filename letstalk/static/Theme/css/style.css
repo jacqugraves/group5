@@ -234,7 +234,9 @@ body {
 }
 
 #slide-1 h1 {
-	padding-top: 130px;
+	/*padding-top: 130px;*/
+	padding-top: 70px;
+    padding-bottom: 10px;
 }
 
 @media (max-width: 991px) {
