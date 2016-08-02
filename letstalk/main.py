@@ -26,14 +26,14 @@ class DTopic(ndb.Model):
 	Category = ndb.StringProperty(required=True, default='Misc')
 	Comments = ndb.StringProperty()
 
-class MainHandler(webapp2.RequestHandler):
+class WebPageHandler(webapp2.RequestHandler):
  def get(self): 
     template = env.get_template('index.html')   
     #template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render())
 
 
-class SigninHandler(webapp2.RequestHandler):
+class MainHandler(webapp2.RequestHandler):
  def get(self):     
     user = users.get_current_user()
     if user:
@@ -71,7 +71,7 @@ class TalkPageHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/signin', SigninHandler),
+    ('/webpage', WebPageHandler),
     ('/newtopic', SetTopicHandler),
     ('/talkpage', TalkPageHandler)
 ], debug=True)
