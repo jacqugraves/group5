@@ -39,8 +39,6 @@ class MainHandler(webapp2.RequestHandler):
     if user:
         template = env.get_template('index.html') 
         self.response.out.write(template.render())
-        #greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
-            #(user.nickname(), users.create_login_url()('/webpage')))
     else:
         login = users.create_login_url('/')
         greeting = '<a href="%s">Sign in or register</a>.' % login
