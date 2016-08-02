@@ -36,13 +36,13 @@ class WebPageHandler(webapp2.RequestHandler):
     self.response.out.write(template.render())
 
 
-class MainHandler(webapp2.RequestHandler):
+class MainHandler(webapp2.RequestHandler):  #Page user see's first asking them to login in 
  def get(self):     
     user = users.get_current_user()
-    if user:
+    if user:  #if the user is logged in it will render the main webpage
         template = env.get_template('index.html') 
         self.response.out.write(template.render())
-    else:
+    else:  #if the user is not logged in, it will ask them to login then redirect 
         login = users.create_login_url('/')
         greeting = '<a href="%s">Sign in or register</a>.' % login
         self.response.out.write('<html><body>%s</body></html>' % greeting)
