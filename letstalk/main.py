@@ -49,20 +49,20 @@ class MainHandler(webapp2.RequestHandler):  #Page user see's first asking them t
 
 class SetTopicHandler(webapp2.RequestHandler):
     def get(self):
-        templates=env2.get_template('newTopic.html')
+        templates=env2.get_template('newTopic.html')  #render's the form for creating new topics
         self.response.out.write(templates.render())
        
-    def post(self):
+    def post(self):  # following that post immediately redirects you to talk.html
     	#self.response.out.write("submitted")
-    	results_template = env2.get_template('Talk.html')
-        self.response.out.write(results_template.render())
-        string1 = self.request.get("SideOne")
+    	results_template = env2.get_template('Talk.html') #renders commenting html page
+        self.response.out.write(results_template.render()) 
+        string1 = self.request.get("SideOne") 
         string2 = self.request.get("SideTwo")
         t = DTopic(
-        	TheId=123,
+        	TheId=123, #calling all comments in the specific topic
         	Topic=(string1 + " vs "+ string2),
         	Category =self.request.get("Cat"),
-        	Order= 0,
+        	Order= 0, #keeps the comment in order
         	Comments =self.request.get("FirstComment"))	
         t.put()
         
