@@ -388,7 +388,114 @@ body {
 	text-align: left;
 	width: 100%;
 }
-	
+/* topic labels on topics page (left to right) */
+ h1 { 
+   color:white;
+   position: absolute; 
+   top: 200px; 
+   left: 75px; 
+   width: 100%;   
+   font: bold 24px/45px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px
+}
+h2 {
+   color:white;
+   position: absolute; 
+   top: 200px; 
+   left: 75px; 
+   width: 100%;   
+   font: bold 24px/45px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px
+
+}
+
+h3{
+   color:white;
+   position: absolute; 
+   top: 200px; 
+   left: 75px; 
+   width: 100%;   
+   font: bold 24px/45px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px
+}
+
+h4{
+   color:white;
+   position: absolute; 
+   top: 200px; 
+   left: 75px; 
+   width: 100%;   
+   font: bold 24px/45px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px
+}
+
+h5 {
+   color:white;
+   position: absolute; 
+   top: 200px; 
+   left: 75px; 
+   width: 100%;   
+   font: bold 24px/45px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px
+}
+
+h6 {
+   color:white;
+   position: absolute; 
+   top: 200px; 
+   left: 75px; 
+   width: 100%;   
+   font: bold 24px/45px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px
+}
+
+h7 {
+   color:white;
+   position: absolute; 
+   top: 200px; 
+   left: 75px; 
+   width: 100%;   
+   font: bold 24px/45px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px
+
+}
+h8 {
+   color:white;
+   position: absolute; 
+   top: 200px; 
+   left: 75px; 
+   width: 100%;   
+   font: bold 24px/45px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px
+
+}
+
+/* end of topics labeling */
+
 	#slide-3 .col-12 {
 		display: inline-block;
 		height: 451px;
