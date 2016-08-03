@@ -82,7 +82,16 @@ class ListTopicHandler(webapp2.RequestHandler):
        category = self.request.get('category')
        self.response.out.write(category)
 
-
+class FormatHandler(webapp2.RequestHandler):
+    def get(self):
+        template = env.get_template("format.html")
+        format_query = Format.query()
+        format_results = format_query.fetch()
+        format_result = format_results[0]
+        data = {}
+        data['title'] = format_result.title
+        data[''] = format_result.source
+        self.response.write(template.render(data)) 
 
 
 app = webapp2.WSGIApplication([
