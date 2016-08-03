@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="static/assets/css/main.css" />
+		<link href="/static/Theme/css/TalkPage.css"  rel='stylesheet'>
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
@@ -36,7 +37,7 @@
 						</ul>
 					</nav>-->
 
-									<div id="main">
+									<--<div id="main">
 
 										<div id='firstComment'> 
 		
@@ -52,13 +53,14 @@
 
 						 <!--Content--> 
 							<section id="content" class="main">
-								{{comment}}
-								<h2>Cupcake ipsum dolor</h2>
-								<p>Cupcake ipsum dolor sit amet biscuit toffee. Donut pie sweet roll jujubes cheesecake tart I love. Jelly beans macaroon jelly-o candy toffee jelly beans chocolate cake sugar plum sugar plum. Lemon drops I love donut apple pie cookie soufflé topping jujubes. Lollipop jelly-o chupa chups powder croissant. I love dragée cotton candy. Muffin chocolate jujubes apple pie I love chocolate cake. Sesame snaps tart cake jujubes chupa chups I love. Lemon drops I love tootsie roll I love carrot cake I love lollipop. Bonbon wafer sweet roll pie sesame snaps powder. Cookie muffin lemon drops. Liquorice carrot cake muffin pudding apple pie. Caramels fruitcake carrot cake tiramisu fruitcake I love cookie oat cake muffin. Candy canes marshmallow cookie biscuit chocolate bar pie.</p>
-								<p>Cupcake ipsum dolor sit amet biscuit toffee. Donut pie sweet roll jujubes cheesecake tart I love. Jelly beans macaroon jelly-o candy toffee jelly beans chocolate cake sugar plum sugar plum. Lemon drops I love donut apple pie cookie soufflé topping jujubes. Lollipop jelly-o chupa chups powder croissant. I love dragée cotton candy. Muffin chocolate jujubes apple pie I love chocolate cake. Sesame snaps tart cake jujubes chupa chups I love. Lemon drops I love tootsie roll I love carrot cake I love lollipop. Bonbon wafer sweet roll pie sesame snaps powder. Cookie muffin lemon drops. Liquorice carrot cake muffin pudding apple pie. Caramels fruitcake carrot cake tiramisu fruitcake I love cookie oat cake muffin. Candy canes marshmallow cookie biscuit chocolate bar pie.</p>
-								<p>Cupcake ipsum dolor sit amet biscuit toffee. Donut pie sweet roll jujubes cheesecake tart I love. Jelly beans macaroon jelly-o candy toffee jelly beans chocolate cake sugar plum sugar plum. Lemon drops I love donut apple pie cookie soufflé topping jujubes. Lollipop jelly-o chupa chups powder croissant. I love dragée cotton candy. Muffin chocolate jujubes apple pie I love chocolate cake. Sesame snaps tart cake jujubes chupa chups I love. Lemon drops I love tootsie roll I love carrot cake I love lollipop. Bonbon wafer sweet roll pie sesame snaps powder. Cookie muffin lemon drops. Liquorice carrot cake muffin pudding apple pie. Caramels fruitcake carrot cake tiramisu fruitcake I love cookie oat cake muffin. Candy canes marshmallow cookie biscuit chocolate bar pie.</p>
-								<p>Cupcake ipsum dolor sit amet biscuit toffee. Donut pie sweet roll jujubes cheesecake tart I love. Jelly beans macaroon jelly-o candy toffee jelly beans chocolate cake sugar plum sugar plum. Lemon drops I love donut apple pie cookie soufflé topping jujubes. Lollipop jelly-o chupa chups powder croissant. I love dragée cotton candy. Muffin chocolate jujubes apple pie I love chocolate cake. Sesame snaps tart cake jujubes chupa chups I love. Lemon drops I love tootsie roll I love carrot cake I love lollipop. Bonbon wafer sweet roll pie sesame snaps powder. Cookie muffin lemon drops. Liquorice carrot cake muffin pudding apple pie. Caramels fruitcake carrot cake tiramisu fruitcake I love cookie oat cake muffin. Candy canes marshmallow cookie biscuit chocolate bar pie.</p>
-								<p>Cupcake ipsum dolor sit amet biscuit toffee. Donut pie sweet roll jujubes cheesecake tart I love. Jelly beans macaroon jelly-o candy toffee jelly beans chocolate cake sugar plum sugar plum. Lemon drops I love donut apple pie cookie soufflé topping jujubes. Lollipop jelly-o chupa chups powder croissant. I love dragée cotton candy. Muffin chocolate jujubes apple pie I love chocolate cake. Sesame snaps tart cake jujubes chupa chups I love. Lemon drops I love tootsie roll I love carrot cake I love lollipop. Bonbon wafer sweet roll pie sesame snaps powder. Cookie muffin lemon drops. Liquorice carrot cake muffin pudding apple pie. Caramels fruitcake carrot cake tiramisu fruitcake I love cookie oat cake muffin. Candy canes marshmallow cookie biscuit chocolate bar pie.</p>
+
+								{% for comment in comments %}
+									<div class='comment'>
+									{{comment}}
+									</div>
+								{% endfor%}
+								
+
 							</section> 
 
 					</div>

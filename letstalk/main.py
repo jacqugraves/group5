@@ -48,6 +48,7 @@ class SetTopicHandler(webapp2.RequestHandler):
     def get(self):
         templates=env2.get_template('newTopic.html')  #render's the form for creating new topics
         self.response.out.write(templates.render())
+
     def post(self):
     	#self.response.out.write("submitted")
     	##results_template = env2.get_template('Talk.html')
@@ -59,12 +60,14 @@ class SetTopicHandler(webapp2.RequestHandler):
         	Topic=(string1 + " vs "+ string2),
         	Category =self.request.get("Cat"),
         	Comments =[self.request.get("FirstComment")])	
+
         t.put()
-        self.redirect('/talkpage')
+        self.redirect('/listtopic')
 
 
 class TalkPageHandler(webapp2.RequestHandler):
     def get(self):
+
         #templates=env2.get_template('Talk.html')
         #self.response.out.write(templates.render())
         top = DTopic.query().filter(DTopic.TheId == 124).get()
@@ -89,21 +92,39 @@ class TalkPageHandler(webapp2.RequestHandler):
 class ListTopicHandler(webapp2.RequestHandler):
     def get(self):
        templates=env.get_template('topics.html')
-       data = {'topic': self.request.get('category')}
-       self.response.out.write(templates.render(data)) 
+       Titledata = {'topic': self.request.get('category')}
+       self.response.out.write(templates.render(Titledata)) 
+
+
+       category = self.request.get('category')
+       self.response.out.write(category)
+       top = DTopic.query().filter(DTopic.TheId == 124).get()
+       print top.Comments
+       data={
+        'comments':top.Comments
+       }
+       results_template = env.get_template('topics.html') 
+       self.response.out.write(results_template.render(data))
+
     def post(self): ## here's the new POST method in the MainHandler
-        self.response.out.write("Comment") 
-        results_template = env.get_template('topics.html') 
+        top=DTopic.query().filter(DTopic.TheId == 124).get()
+        top.Comments.append(self.request.get('newCom'))
+        top.put()
+        
         print ""
         print "the category is"
         print self.request.get('category')
         data = {
         'topic' : self.request.get('category'),
-        'comment': self.request.get('newCom')
+        'comments':top.Comments
         } 
+        results_template = env.get_template('topics.html')
         self.response.out.write(results_template.render(data))
+        self.response.out.write("Comment") 
+         
 
-
+        self.response.out.write(results_template.render())
+        self.redirect('/listtopic')
 
 class FormatHandler(webapp2.RequestHandler):
     def get(self):
