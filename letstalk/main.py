@@ -92,15 +92,10 @@ class TalkPageHandler(webapp2.RequestHandler):
 class ListTopicHandler(webapp2.RequestHandler):
     def get(self):
        templates=env.get_template('topics.html')
-       Titledata = {'topic': self.request.get('category')}
-       self.response.out.write(templates.render(Titledata)) 
 
-
-       category = self.request.get('category')
-       self.response.out.write(category)
        top = DTopic.query().filter(DTopic.TheId == 124).get()
-       print top.Comments
        data={
+        'topic': self.request.get('category'),
         'comments':top.Comments
        }
        results_template = env.get_template('topics.html') 
@@ -120,10 +115,6 @@ class ListTopicHandler(webapp2.RequestHandler):
         } 
         results_template = env.get_template('topics.html')
         self.response.out.write(results_template.render(data))
-        self.response.out.write("Comment") 
-         
-
-        self.response.out.write(results_template.render())
         self.redirect('/listtopic')
 
 class FormatHandler(webapp2.RequestHandler):
