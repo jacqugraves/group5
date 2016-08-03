@@ -82,7 +82,9 @@ class ListTopicHandler(webapp2.RequestHandler):
        category = self.request.get('category')
        self.response.out.write(category)
     def post(self): ## here's the new POST method in the MainHandler
-        self.response.out.write("You have submitted your madlib")  
+        self.response.out.write("Comment") 
+        results_template = env.get_template('topics.html') 
+        self.response.out.write(results_template.render())
 
 class FormatHandler(webapp2.RequestHandler):
     def get(self):
