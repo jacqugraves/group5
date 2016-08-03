@@ -561,11 +561,12 @@ h8 {
 		color: white;
 	}
 
-
+/* resources slide */
 #slide-5 {
 	background-color: #f39c12;
 	color: #e4e6e5;
 	padding-top: 90px;
+
 }
 
 #slide-6 {
@@ -600,7 +601,7 @@ h8 {
 }
 	
 	#contact-row-4 {
-		padding-top: 125px;
+		padding-top: 50px;
 	}
 	
 	#contact-row-4 .col-12 {
