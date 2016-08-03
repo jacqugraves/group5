@@ -22,11 +22,11 @@ env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 env2 = jinja2.Environment(loader=jinja2.FileSystemLoader("NewTopicTemplate"))
 
 class DTopic(ndb.Model):
-	Topic = ndb.StringProperty(required=True)
-	Category = ndb.StringProperty(required=True, default='Misc')
-	Comments = ndb.StringProperty()
-	Order = ndb.IntegerProperty()
-	TheId= ndb.IntegerProperty()
+    Topic = ndb.StringProperty(required=True)
+    Category = ndb.StringProperty(required=True, default='Misc')
+    Comments = ndb.StringProperty()
+    Order = ndb.IntegerProperty()
+    TheId= ndb.IntegerProperty()
     #q=ndb.Query(DTopic)
 
 class WebPageHandler(webapp2.RequestHandler):
@@ -53,17 +53,17 @@ class SetTopicHandler(webapp2.RequestHandler):
         self.response.out.write(templates.render())
        
     def post(self):  # following that post immediately redirects you to talk.html
-    	#self.response.out.write("submitted")
-    	results_template = env2.get_template('Talk.html') #renders commenting html page
+        #self.response.out.write("submitted")
+        results_template = env2.get_template('Talk.html') #renders commenting html page
         self.response.out.write(results_template.render()) 
         string1 = self.request.get("SideOne") 
         string2 = self.request.get("SideTwo")
         t = DTopic(
-        	TheId=123, #calling all comments in the specific topic
-        	Topic=(string1 + " vs "+ string2),
-        	Category =self.request.get("Cat"),
-        	Order= 0, #keeps the comment in order
-        	Comments =self.request.get("FirstComment"))	
+            TheId=123, #calling all comments in the specific topic
+            Topic=(string1 + " vs "+ string2),
+            Category =self.request.get("Cat"),
+            Order= 0, #keeps the comment in order
+            Comments =self.request.get("FirstComment"))
         t.put()
         
        
