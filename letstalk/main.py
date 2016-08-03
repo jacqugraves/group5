@@ -35,16 +35,28 @@ class WebPageHandler(webapp2.RequestHandler):
     self.response.out.write(template.render())
 
 
+
 class MainHandler(webapp2.RequestHandler):  #Page user see's first asking them to login in 
- def get(self):     
-    user = users.get_current_user()
-    if user:  #if the user is logged in it will render the main webpage
-        template = env.get_template('index.html') 
-        self.response.out.write(template.render())
-    else:  #if the user is not logged in, it will ask them to login then redirect 
-        login = users.create_login_url('/')
-        greeting = '<a href="%s">Sign in or register</a>.' % login
-        self.response.out.write('<html><body>%s</body></html>' % greeting)
+    topics = {'politics': 'politics',
+          'sexism': 'sexism',
+          'racism': 'racism',
+          'world hunger': 'worldhunger',
+          'police brutality':'policebrutality',
+          'gun laws': 'gun',
+          'student loans': 'studentloans',
+          'sexual assault': 'sexualassault',
+          'homelessness': 'homelessness'}
+    
+    def get(self):     
+        user = users.get_current_user()
+        if user:  #if the user is logged in it will render the main webpage
+            data = {'topics': self.topics}
+            template = env.get_template('index.html') 
+            self.response.out.write(template.render(data))
+        else:  #if the user is not logged in, it will ask them to login then redirect 
+            login = users.create_login_url('/')
+            greeting = '<a href="%s">Sign in or register</a>.' % login
+            self.response.out.write('<html><body>%s</body></html>' % greeting)
 
 class SetTopicHandler(webapp2.RequestHandler):
     def get(self):
@@ -91,13 +103,21 @@ class TalkPageHandler(webapp2.RequestHandler):
 class ListTopicHandler(webapp2.RequestHandler):
     def get(self):
        templates=env.get_template('topics.html')
-       self.response.out.write(templates.render()) 
-       category = self.request.get('category')
-       self.response.out.write(category)
+       data = {'topic': self.request.get('category')}
+       self.response.out.write(templates.render(data)) 
     def post(self): ## here's the new POST method in the MainHandler
         self.response.out.write("Comment") 
         results_template = env.get_template('topics.html') 
-        self.response.out.write(results_template.render())
+        print ""
+        print "the category is"
+        print self.request.get('category')
+        data = {
+        'topic' : self.request.get('category'),
+        'comment': self.request.get('newCom')
+        } 
+        self.response.out.write(results_template.render(data))
+
+
 
 class FormatHandler(webapp2.RequestHandler):
     def get(self):
