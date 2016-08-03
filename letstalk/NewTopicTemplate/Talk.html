@@ -1,17 +1,40 @@
 <DOCTYPE html>
 <html>
 <head>
+<<<<<<< Updated upstream
 	<link href="/static/Theme/css/TalkPage.css"  rel='stylesheet'> <!--links css-->
 </head>
 <body>
 
 	<div id='firstComment'> 
+=======
+	<link href="/static/Theme/css/TalkPage.css"  rel='stylesheet'>
+	<script> src="/static/Themes/js/Talk.js"</script> 
+</head>
+<body>
+	{% for comment in comments %}
+	<div class='comment'>
+		{{comment}}
+	</div>
+	{% endfor%}
+>>>>>>> Stashed changes
 		
+	
+
+	<form method="post" >
+	<div id='TypeinNew'>
+		<input type="text" name="newCom" >
+		<input type="submit" value="Submit" >
+	</div>
+	</form>
+	<!--<div id='firstComment'>
+		<input id="newCom" type="text">
+		{{comment}}
 		<div id='TypeinNew'>
 			<input type="text" name="newCom">
 			<input type="submit" value="Submit">
 		</div>
-	</div>
+	</div>-->
 
 <body>
 </body>

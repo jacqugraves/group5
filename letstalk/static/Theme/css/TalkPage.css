@@ -1,7 +1,7 @@
 body{
 	background: light blue;
 }
-#firstComment{
+.comment{
 	position: relative;
 	width: 800px;
     height: 120px;
@@ -14,7 +14,7 @@ body{
 	border-color: #B8B8B8
  
 }
-#TypeinNew{
+TypeinNew{
 	position: absolute;
 	font-size: 17px;
     left:125px;

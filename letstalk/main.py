@@ -22,12 +22,19 @@ env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 env2 = jinja2.Environment(loader=jinja2.FileSystemLoader("NewTopicTemplate"))
 
 class DTopic(ndb.Model):
+<<<<<<< Updated upstream
     Topic = ndb.StringProperty(required=True)
     Category = ndb.StringProperty(required=True, default='Misc')
     Comments = ndb.StringProperty()
     Order = ndb.IntegerProperty()
     TheId= ndb.IntegerProperty()
     #q=ndb.Query(DTopic)
+=======
+	Topic = ndb.StringProperty(required=True)
+	Category = ndb.StringProperty(required=True, default='Misc')
+	Comments = ndb.StringProperty(repeated=True)
+	TheId= ndb.IntegerProperty()
+>>>>>>> Stashed changes
 
 class WebPageHandler(webapp2.RequestHandler):
  def get(self): 
@@ -52,6 +59,7 @@ class SetTopicHandler(webapp2.RequestHandler):
         templates=env2.get_template('newTopic.html')  #render's the form for creating new topics
         self.response.out.write(templates.render())
        
+<<<<<<< Updated upstream
     def post(self):  # following that post immediately redirects you to talk.html
         #self.response.out.write("submitted")
         results_template = env2.get_template('Talk.html') #renders commenting html page
@@ -64,16 +72,50 @@ class SetTopicHandler(webapp2.RequestHandler):
             Category =self.request.get("Cat"),
             Order= 0, #keeps the comment in order
             Comments =self.request.get("FirstComment"))
+=======
+    def post(self):
+    	#self.response.out.write("submitted")
+    	##results_template = env2.get_template('Talk.html')
+        #self.response.out.write(results_template.render(top))
+        string1 = self.request.get("SideOne")
+        string2 = self.request.get("SideTwo")
+        t = DTopic(
+        	TheId=124,
+        	Topic=(string1 + " vs "+ string2),
+        	Category =self.request.get("Cat"),
+        	Comments =[self.request.get("FirstComment")])	
+>>>>>>> Stashed changes
         t.put()
-        
-       
-#if DTopic.query().filter(DTopic.TheId == 123)
+        self.redirect('/talkpage')
 
 
 class TalkPageHandler(webapp2.RequestHandler):
     def get(self):
+<<<<<<< Updated upstream
         templates=env2.get_templates('Talk.html')
         self.response.out.write(templates.render())
+=======
+        #templates=env2.get_template('Talk.html')
+        #self.response.out.write(templates.render())
+        top = DTopic.query().filter(DTopic.TheId == 124).get()
+        #for comment in top:
+        print top.Comments
+        data={
+        'comments':top.Comments
+        }
+
+        results_template = env2.get_template('Talk.html')
+        self.response.out.write(results_template.render(data))
+
+    def post(self):
+        top=DTopic.query().filter(DTopic.TheId == 124).get()
+        top.Comments.append(self.request.get('newCom'))
+        top.put()
+       
+        results_template = env2.get_template('Talk.html')
+        self.redirect('/talkpage')
+
+>>>>>>> Stashed changes
 
 class ListTopicHandler(webapp2.RequestHandler):
     def get(self):
