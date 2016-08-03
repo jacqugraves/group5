@@ -70,17 +70,20 @@ class SetTopicHandler(webapp2.RequestHandler):
 #if DTopic.query().filter(DTopic.TheId == 123)
 
 
-
-
 class TalkPageHandler(webapp2.RequestHandler):
     def get(self):
-        templates=env2.get_template('Talk.html')
+        templates=env2.get_templates('Talk.html')
         self.response.out.write(templates.render())
 
 class ListTopicHandler(webapp2.RequestHandler):
     def get(self):
+       templates=env.get_template('topics.html')
+       self.response.out.write(templates.render()) 
        category = self.request.get('category')
        self.response.out.write(category)
+
+
+
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
