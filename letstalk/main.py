@@ -107,7 +107,7 @@ class TalkPageHandler(webapp2.RequestHandler):
        
         #results_template = env2.get_template('Talk.html')
         
-
+#user.get_current_user
 
 class ListTopicHandler(webapp2.RequestHandler):
     def get(self):
