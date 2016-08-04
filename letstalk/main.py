@@ -40,9 +40,15 @@ class MainHandler(webapp2.RequestHandler):  #Page user see's first asking them t
             template = env.get_template('index.html') 
             self.response.out.write(template.render(data))
         else:  #if the user is not logged in, it will ask them to login then redirect 
+            template = env.get_template('mainindex.html') 
             login = users.create_login_url('/')
             greeting = '<a href="%s">Sign in or register</a>.' % login
-            self.response.out.write('<html><body>%s</body></html>' % greeting)
+            data = {"LogIn" : greeting}
+            self.response.out.write(template.render(data))
+        # datatwo = {}
+        # self.response.write(template.render(datatwo))
+
+
 
 class SetTopicHandler(webapp2.RequestHandler):
     def get(self):
@@ -201,11 +207,17 @@ class FormatHandler(webapp2.RequestHandler):
         data[''] = format_result.source
         self.response.write(template.render(data)) 
 
+class WorkHandler(webapp2.RequestHandler):
+    def get(self):
+        templates=env2.get_template('mainindex.html')  #render's the form for creating new topics
+        self.response.out.write(templates.render())
+
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/webpage', WebPageHandler),
     ('/newtopic', SetTopicHandler),
     ('/talkpage', TalkPageHandler),
+    ('/workpage', WorkHandler),
     ('/listtopic', ListTopicHandler)
 ], debug=True)
