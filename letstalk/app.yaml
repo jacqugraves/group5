@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 application: letstalk-1470342818247
+=======
+application: letstalkgroup-1470342523860
+>>>>>>> Stashed changes
 version: 1
 runtime: python27
 api_version: 1
