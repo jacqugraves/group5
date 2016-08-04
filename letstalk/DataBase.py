@@ -1,5 +1,5 @@
-from google.appengine.ext import ndb
-	
+
+from google.appengine.ext import ndb	
 
 commentary=
 class DTopic(ndb.Model):
