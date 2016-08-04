@@ -184,16 +184,6 @@ class ListTopicHandler(webapp2.RequestHandler):
         top=DTopic.query().filter(DTopic.TheId == n).get()
         top.Comments.append(self.request.get('newCom'))
         top.put()
-        
-        #print ""
-        #print "the category is"
-        #print self.request.get('category')
-        #data = {
-        #'topic' : self.request.get('category'),
-        #'comments':top.Comments
-        #} 
-       # results_template = env.get_template('topics.html')
-        #self.response.out.write(results_template.render(data))
         self.redirect('/listtopic?category=' + self.request.get('category'))
         #self.redirect('/talkpage')
 class FormatHandler(webapp2.RequestHandler):
