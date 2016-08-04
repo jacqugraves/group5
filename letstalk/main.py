@@ -7,8 +7,31 @@ import jinja2
 env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 env2 = jinja2.Environment(loader=jinja2.FileSystemLoader("NewTopicTemplate"))
 
+def get_category_id(category_name):
+    if category_name=='politics':
+        n=100
+    elif category_name== 'sexism':
+        n=124
+    elif category_name=='racism':
+        n=300
+    elif category_name=='world hunger':
+        n=400
+    elif category_name=='police brutality':
+        n=500
+    elif category_name== 'gun laws':
+        n=600
+    elif category_name=='student loans':
+        n=700
+    elif category_name== 'sexual assault':
+        n=800
+    elif category_name=='homelessness':
+        n=900
+
+    return n
+        
+ 
 class DTopic(ndb.Model):
-	Topic = ndb.StringProperty(required=True)
+	#Topic = ndb.StringProperty(required=True)
 	Category = ndb.StringProperty(required=True, default='Misc')
 	Comments = ndb.StringProperty(repeated=True)
 	TheId= ndb.IntegerProperty()
@@ -59,24 +82,7 @@ class SetTopicHandler(webapp2.RequestHandler):
     	#self.response.out.write("submitted")
     	##results_template = env2.get_template('Talk.html')
         #self.response.out.write(results_template.render(top))
-        if self.request.get('Category')=='politics':
-            n=100
-        if self.request.get('Category')== 'sexism':
-            n=124
-        if self.request.get('Category')=='racism':
-            n=300
-        if self.request.get('Category')== 'world hunger':
-            n=400
-        if self.request.get('Category')=='police brutality':
-            n=500
-        if self.request.get('Category')== 'gun laws':
-            n=600
-        if self.request.get('Category')=='student loans':
-            n=700
-        if self.request.get('Category')== 'sexual assault':
-            n=800
-        if self.request.get('Category')=='homelessness':
-            n=900
+        n=get_category_id(self.request.get("Category"))
         string1 = self.request.get("SideOne")
         string2 = self.request.get("SideTwo")
         t = DTopic(
@@ -113,74 +119,32 @@ class TalkPageHandler(webapp2.RequestHandler):
        
         #results_template = env2.get_template('Talk.html')
         
-#user.get_current_user
+#user.get_current_user##############################################################################
 
 class ListTopicHandler(webapp2.RequestHandler):
     def get(self):
         templates=env.get_template('topics.html')
-        if self.request.get('category')=='politics':
-            DTopic.query().filter(DTopic.TheId == 100).get()
-            n=100
-        if self.request.get('category')== 'sexism':
-            DTopic.query().filter(DTopic.TheId == 124).get()
-            n=124
-        if self.request.get('category')=='racism':
-            DTopic.query().filter(DTopic.TheId == 300).get()
-            n=300
-        if self.request.get('category')== 'world hunger':
-            DTopic.query().filter(DTopic.TheId == 400).get()
-            n=400
-        if self.request.get('category')=='police brutality':
-            DTopic.query().filter(DTopic.TheId == 500).get()
-            n=500
-        if self.request.get('category')== 'gun laws':
-            DTopic.query().filter(DTopic.TheId == 600).get()
-            n=600
-        if self.request.get('category')=='student loans':
-            DTopic.query().filter(DTopic.TheId == 700).get()
-            n=700
-        if self.request.get('category')== 'sexual assault':
-            DTopic.query().filter(DTopic.TheId == 800).get()
-            n=800
-        if self.request.get('category')=='homelessness':
-            DTopic.query().filter(DTopic.TheId == 900).get()
-            n=900
+        n=get_category_id(self.request.get("category"))
         top = DTopic.query().filter(DTopic.TheId == n).get()
+        if top is None:
+            my_comments = []
+            t = DTopic(
+                TheId=n,
+                Category =self.request.get("Category"))
+            t.put()
+            #'Category'=(self.request.get("category"))
+        else:
+            my_comments = top.Comments
+
         data={
             'topic': self.request.get('category'),
-            'comments':top.Comments
+            'comments':my_comments
         }
         results_template = env.get_template('topics.html') 
         self.response.out.write(results_template.render(data))
-
+        
     def post(self): ## here's the new POST method in the MainHandler
-        if self.request.get('category')=='politics':
-            DTopic.query().filter(DTopic.TheId == 100).get()
-            n=100
-        if self.request.get('category')== 'sexism':
-            DTopic.query().filter(DTopic.TheId == 124).get()
-            n=124
-        if self.request.get('category')=='racism':
-            DTopic.query().filter(DTopic.TheId == 300).get()
-            n=300
-        if self.request.get('category')== 'world hunger':
-            DTopic.query().filter(DTopic.TheId == 400).get()
-            n=400
-        if self.request.get('category')=='police brutality':
-            DTopic.query().filter(DTopic.TheId == 500).get()
-            n=500
-        if self.request.get('category')== 'gun laws':
-            DTopic.query().filter(DTopic.TheId == 600).get()
-            n=600
-        if self.request.get('category')=='student loans':
-            DTopic.query().filter(DTopic.TheId == 700).get()
-            n=700
-        if self.request.get('category')== 'sexual assault':
-            DTopic.query().filter(DTopic.TheId == 800).get()
-            n=800
-        if self.request.get('category')=='homelessness':
-            DTopic.query().filter(DTopic.TheId == 900).get()
-            n=900
+        n=get_category_id(self.request.get("category"))
         top=DTopic.query().filter(DTopic.TheId == n).get()
         top.Comments.append(self.request.get('newCom'))
         top.put()
