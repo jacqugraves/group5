@@ -33,7 +33,7 @@ class MainHandler(webapp2.RequestHandler):  #Page user see's first asking them t
           'sexual assault': 'sexualassault',
           'homelessness': 'homelessness'}
     
-    def get(self):     
+    def get(self):      
         user = users.get_current_user()
         if user:  #if the user is logged in it will render the main webpage
             data = {'topics': self.topics}
